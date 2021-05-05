@@ -21,6 +21,7 @@ using namespace pandemic;
 
 Board board;
 
+//The players 
 OperationsExpert builder_research_station{board, HongKong};
 OperationsExpert operationsExpert{board, HongKong};
 Dispatcher dispatcher{board, HongKong};
@@ -31,6 +32,7 @@ Virologist virologist{board, HongKong};
 GeneSplicer geneSplicer{board, HongKong};
 FieldDoctor fieldDoctor{board, HongKong};
 
+//all the players take card to this city
 void all_players_take_card(City city) {
     operationsExpert.take_card(city);
     dispatcher.take_card(city);
@@ -87,7 +89,8 @@ void build_in_research_station(City city) {
 
 
 TEST_CASE("BOARD TEST")
-{
+{// start pos of number of disease
+
     CHECK(board.is_clean() == true);
 
     board[SanFrancisco] = 4;
@@ -115,7 +118,7 @@ TEST_CASE("BOARD TEST")
             CHECK(board[Seoul] == 4);
 
 
-    //able to change
+    //Able to change the number of disease
     board[SanFrancisco] = 3;
             CHECK(board[SanFrancisco] == 3);
 
@@ -146,7 +149,7 @@ TEST_CASE("BOARD TEST")
 
 TEST_CASE("TEST drive")
 {
-//able to drive to a nearby city in the same color
+//Able to drive to a nearby city in the same color.
             CHECK_NOTHROW(operationsExpert.drive(Bangkok));
             CHECK_NOTHROW(dispatcher.drive(Bangkok));
             CHECK_NOTHROW(scientist.drive(Bangkok));
@@ -155,7 +158,7 @@ TEST_CASE("TEST drive")
             CHECK_NOTHROW(virologist.drive(Bangkok));
             CHECK_NOTHROW(geneSplicer.drive(Bangkok));
             CHECK_NOTHROW(fieldDoctor.drive(Bangkok));
-    //able to drive to a nearby city in a different color
+//Able to drive to a nearby city in a diff color.
             CHECK_NOTHROW(operationsExpert.drive(Kolkata));
             CHECK_NOTHROW(dispatcher.drive(Kolkata));
             CHECK_NOTHROW(scientist.drive(Kolkata));
@@ -164,7 +167,7 @@ TEST_CASE("TEST drive")
             CHECK_NOTHROW(virologist.drive(Kolkata));
             CHECK_NOTHROW(geneSplicer.drive(Kolkata));
             CHECK_NOTHROW(fieldDoctor.drive(Kolkata));
-    //unable to drive to a non nearby city in the same color
+//Unable to drive to a non nearby city in the same color
             CHECK_THROWS(operationsExpert.drive(Istanbul));
             CHECK_THROWS(dispatcher.drive(Istanbul));
             CHECK_THROWS(scientist.drive(Istanbul));
@@ -173,7 +176,7 @@ TEST_CASE("TEST drive")
             CHECK_THROWS(virologist.drive(Istanbul));
             CHECK_THROWS(geneSplicer.drive(Istanbul));
             CHECK_THROWS(fieldDoctor.drive(Istanbul));
-    //unable to drive to a non nearby city in a different color
+//Unable to drive to a non nearby city in a diff color
             CHECK_THROWS(operationsExpert.drive(Paris));
             CHECK_THROWS(dispatcher.drive(Paris));
             CHECK_THROWS(scientist.drive(Paris));
@@ -187,7 +190,7 @@ TEST_CASE("TEST drive")
 
 TEST_CASE ("TEST fly_direct") 
 {
-    //able to fly direct to Miami
+    //Able to fly direct to Miami becouse we have Miami's card
     all_players_take_card(Miami);
     CHECK_NOTHROW(operationsExpert.fly_direct(Miami));
     CHECK_NOTHROW(dispatcher.fly_direct(Miami));
@@ -199,8 +202,8 @@ TEST_CASE ("TEST fly_direct")
     CHECK_NOTHROW(fieldDoctor.fly_direct(Miami));
 
     all_players_take_card(Miami);
-     //unable to fly direct to Santiago (they can fly charter)
-    // we dont have Santiago's card
+     //Unable to fly direct to Santiago (they can fly charter)
+    // becouse we dont have Santiago's card
     CHECK_THROWS(operationsExpert.fly_direct(Santiago));
     CHECK_THROWS(dispatcher.fly_direct(Santiago));
     CHECK_THROWS(scientist.fly_direct(Santiago));
@@ -304,12 +307,12 @@ TEST_CASE ("TEST build")
     operationsExpert.fly_direct(SanFrancisco);
 }
 
-TEST_CASE ("TEST discover_cure") 
-{
+// TEST_CASE ("TEST discover_cure") 
+// {
 
-}
+// }
 
-TEST_CASE ("TEST treat") 
-{
+// TEST_CASE ("TEST treat") 
+// {
 
-}
+// }
